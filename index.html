@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibrePost</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+    <div class="backdrop-blur">
+        <header>
+            <nav>
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-feather-alt"></i></span>
+                    <span class="logo-text">Libre<span class="accent">Post</span></span>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Поиск статей...">
+                    <button id="searchBtn" class="icon-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="nav-controls">
+                    <select id="sortSelect" class="sort-select">
+                        <option value="date">По дате</option>
+                        <option value="views">По просмотрам</option>
+                        <option value="comments">По комментариям</option>
+                    </select>
+                    <button id="themeToggle" class="icon-btn theme-btn">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <button id="createPostBtn" class="primary-btn">
+                        <i class="fas fa-plus"></i> Создать
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <div class="posts-grid" id="postsContainer">
+                <!-- Статьи будут добавлены через JavaScript -->
+            </div>
+        </main>
+
+        <!-- Модальное окно создания статьи -->
+        <div id="createPostModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Новая статья</h2>
+                    <button class="close-btn"><i class="fas fa-times"></i></button>
+                </div>
+                
+                <div class="editor-wrapper">
+                    <input type="text" id="postTitle" placeholder="Заголовок статьи" maxlength="100">
+                    <div class="char-counter title-counter">0/100</div>
+                    
+                    <div class="editor-toolbar" id="editorToolbar">
+                        <button data-command="bold" title="Жирный"><i class="fas fa-bold"></i></button>
+                        <button data-command="italic" title="Курсив"><i class="fas fa-italic"></i></button>
+                        <button data-command="underline" title="Подчеркнутый"><i class="fas fa-underline"></i></button>
+                        <div class="toolbar-separator"></div>
+                        <button data-command="insertUnorderedList" title="Маркированный список"><i class="fas fa-list-ul"></i></button>
+                        <button data-command="insertOrderedList" title="Нумерованный список"><i class="fas fa-list-ol"></i></button>
+                        <div class="toolbar-separator"></div>
+                        <button data-command="justifyLeft" title="По левому краю"><i class="fas fa-align-left"></i></button>
+                        <button data-command="justifyCenter" title="По центру"><i class="fas fa-align-center"></i></button>
+                        <button data-command="justifyRight" title="По правому краю"><i class="fas fa-align-right"></i></button>
+                        <div class="toolbar-separator"></div>
+                        <button data-command="formatBlock" data-value="H2" title="Заголовок"><i class="fas fa-heading"></i></button>
+                        <button data-command="formatBlock" data-value="BLOCKQUOTE" title="Цитата"><i class="fas fa-quote-right"></i></button>
+                        <div class="toolbar-separator"></div>
+                        <button id="imageUploadBtn" title="Загрузить изображение"><i class="fas fa-image"></i></button>
+                    </div>
+                    
+                    <div id="editor" class="content-editor" contenteditable="true"></div>
+                    <div class="char-counter content-counter">0/10000</div>
+
+                    <div class="photos-section">
+                        <h3>Фотографии для статьи</h3>
+                        <div id="photosContainer" class="photos-grid"></div>
+                    </div>
+
+                    <div class="captcha-section">
+                        <p>Выберите квадрат <span id="targetColor">цвета</span>:</p>
+                        <div class="color-grid" id="colorGrid"></div>
+                    </div>
+
+                    <button id="submitPost" class="primary-btn" disabled>Опубликовать</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно просмотра статьи -->
+        <div id="viewPostModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close-btn"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="post-content">
+                    <!-- Содержимое статьи будет добавлено через JavaScript -->
+                </div>
+                <div class="post-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye stat-icon"></i>
+                        <span class="views-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <button class="reaction-btn" data-reaction="like">
+                            <i class="far fa-thumbs-up"></i>
+                            <span>0</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="comments-section">
+                    <h3>Комментарии</h3>
+                    <div class="comments-container"></div>
+                    <form class="comment-form">
+                        <textarea placeholder="Написать комментарий..."></textarea>
+                        <div class="comment-captcha-section">
+                            <p>Для публикации выберите квадрат <span class="target-color"></span> цвета:</p>
+                            <div class="color-grid"></div>
+                        </div>
+                        <button type="submit" class="primary-btn" disabled>Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
