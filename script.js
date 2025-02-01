@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error initializing Firebase:', error);
         const postsContainer = document.getElementById('postsContainer');
         if (postsContainer) {
-            postsContainer.innerHTML = '<div class="error">Ошибка инициализации Firebase</div>';
+            postsContainer.innerHTML = '<div class="error">Идёт прогрузка, пожалуйста ждите</div>';
         }
     }
 });
